@@ -1,0 +1,251 @@
+/*
+|--------------------------------------------------------------------------
+| GLOBAL CONTAINER & BASE
+|--------------------------------------------------------------------------
+| Applying the deep violet, shadowed, glass-like base to the card.
+*/
+
+.container {
+  /* Fills the viewport and centers the card */
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: #1a1a2e; /* Dark background behind the modal */
+}
+
+.card {
+  max-width: 960px; /* Wider for the two-column layout */
+  width: 100%;
+  min-height: 500px;
+  
+  /* Deep, professional violet gradient (from previous CSS) */
+  background: linear-gradient(135deg, rgba(91, 33, 182, 0.95), rgba(124, 58, 237, 0.85));
+  
+  /* Glassmorphism/Frosted effect */
+  backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px);
+  
+  border-radius: 1.5rem;
+  border: 1px solid rgba(191, 180, 255, 0.15);
+  box-shadow: 0 30px 80px rgba(124, 58, 237, 0.6), 0 0 100px rgba(91, 33, 182, 0.3);
+  
+  color: #f3f4f6;
+  font-family: 'Montserrat', sans-serif;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns for desktop */
+  overflow: hidden;
+}
+
+/*
+|--------------------------------------------------------------------------
+| LEFT PANEL (Features & Security)
+|--------------------------------------------------------------------------
+| Darker, more informational background.
+*/
+
+.leftPanel {
+  background: rgba(0, 0, 0, 0.25); /* Slightly darker overlay for separation */
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.logoSVG {
+  width: 2.2rem;
+  height: 2.2rem;
+  color: #a78bfa; /* Violet accent */
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+
+.welcomeText {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #e0e0e0;
+  margin-bottom: 3rem;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(124, 58, 237, 0.3); /* Lighter accent color for feature box */
+  padding: 1rem 1.5rem;
+  border-radius: 0.75rem;
+  border-left: 5px solid #a78bfa;
+}
+
+.featureIcon {
+  width: 2rem;
+  height: 2rem;
+  color: #a78bfa;
+}
+
+.featureText h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0;
+  color: #fff;
+}
+
+.featureText span {
+  color: #a78bfa;
+}
+
+.featureText p {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #d1d5db;
+  margin: 0.25rem 0 0 0;
+}
+
+.securityNotice {
+  border: 1px dashed #f87171;
+  background: rgba(248, 113, 113, 0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: #f87171;
+  font-size: 0.9rem;
+}
+
+.securityNotice h3 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| RIGHT PANEL (Connection)
+|--------------------------------------------------------------------------
+*/
+
+.rightPanel {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.5rem 0;
+}
+
+.header p {
+  font-size: 1rem;
+  color: #e0e0e0;
+  margin: 0 0 1.5rem 0;
+}
+
+/* Button styles inspired by the previous professional button */
+.metamaskButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 2.5rem;
+  border-radius: 3rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  
+  /* Primary deep violet gradient */
+  background-image: linear-gradient(135deg, #a78bfa, #7c3aed);
+  
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.5);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metamaskButton:hover:not(:disabled) {
+  background-image: linear-gradient(135deg, #7c3aed, #a78bfa);
+  box-shadow: 0 14px 40px rgba(124, 58, 237, 0.8);
+  transform: translateY(-2px);
+}
+
+.metamaskButton:disabled {
+  background: #4b4b4b;
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.7;
+}
+
+.metamaskIcon {
+  filter: brightness(1.2); /* Enhance MetaMask logo visibility */
+}
+
+/* Status message styles */
+.statusMessage {
+  font-size: 0.95rem;
+  font-weight: 500;
+  min-height: 1.5rem; /* Prevents layout shift */
+}
+
+.textGray { color: #d1d5db; }
+.textIndigo { color: #818cf8; }
+.textRed { color: #f87171; }
+
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVENESS (Mobile First)
+|--------------------------------------------------------------------------
+*/
+
+@media screen and (max-width: 992px) {
+  .card {
+    grid-template-columns: 1fr; /* Stack panels vertically on smaller screens */
+    max-width: 500px;
+  }
+  
+  .leftPanel {
+    padding: 2.5rem;
+    gap: 1.5rem;
+  }
+
+  .rightPanel {
+    padding: 2.5rem;
+    gap: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .card {
+    border-radius: 1rem;
+    margin: 2rem 0.5rem;
+  }
+  .leftPanel, .rightPanel {
+    padding: 1.5rem;
+  }
+  .header h1 {
+    font-size: 1.75rem;
+  }
+  .metamaskButton {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+}

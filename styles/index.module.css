@@ -1,0 +1,228 @@
+.home {
+  width: 88%; /* Slightly wider for better visual space */
+  max-width: 1300px;
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif; /* Using Montserrat for body/base */
+  color: #f3f4f6; /* Brighter white text */
+  user-select: text;
+}
+
+/*
+|--------------------------------------------------------------------------
+| HERO SECTION LAYOUT
+|--------------------------------------------------------------------------
+*/
+
+.heroSection {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* Slightly less heavy on the left side */
+  margin: 4rem 0 6rem 0; /* More vertical breathing room */
+  padding: 5rem 0;
+  gap: 6rem; /* Increased gap for separation */
+  align-items: center;
+  /* Visual line separator for the section */
+  border-bottom: 1px solid rgba(133, 70, 217, 0.2);
+}
+
+/*
+|--------------------------------------------------------------------------
+| HERO LEFT (TEXT)
+|--------------------------------------------------------------------------
+*/
+
+.heroSection_left h1 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: clamp(3rem, 5vw, 4.5rem); /* Larger, more impactful heading */
+  font-weight: 800; /* Bolder for impact */
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  margin: 0;
+  color: #fff; /* Pure white */
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.heroSection_left p {
+  color: #d1c4e9; /* Muted purple for secondary text */
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(1.1rem, 2vw, 1.3rem);
+  font-weight: 500;
+  max-width: 500px;
+  line-height: 1.7;
+  margin-top: 1.5rem;
+}
+
+.heroSection_left_btn {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 4rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| BUTTON STYLING (Re-using component aesthetic)
+|--------------------------------------------------------------------------
+*/
+
+.btn {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  color: #fff;
+  
+  /* Deep violet button gradient */
+  background-image: linear-gradient(135deg, #7c3aed, #6a2ccf);
+  
+  border: none;
+  border-radius: 3rem; /* Fully pill-shaped */
+  padding: 1.2rem 3rem;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.6);
+  cursor: pointer;
+  transition: all 0.35s ease;
+  user-select: none;
+  text-transform: uppercase;
+  min-width: 180px;
+}
+
+.btn:hover,
+.btn:focus {
+  /* Shift to a lighter purple on hover/focus */
+  background-image: linear-gradient(135deg, #ab79f7, #7c3aed);
+  box-shadow: 0 15px 40px rgba(171, 121, 247, 0.9);
+  transform: translateY(-3px);
+  outline: 3px solid #00f5d4; /* Cyan focus accent */
+  outline-offset: 2px;
+}
+
+/* Secondary Button (If used, define a class like .btn-secondary) */
+/* Example for a secondary button (e.g., "Learn More") */
+.btn.secondary {
+    background: transparent;
+    border: 2px solid #ab79f7;
+    color: #ab79f7;
+    box-shadow: none;
+}
+
+.btn.secondary:hover {
+    background: rgba(171, 121, 247, 0.1);
+    box-shadow: 0 0 15px rgba(171, 121, 247, 0.4);
+    transform: translateY(-1px);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| HERO RIGHT (IMAGES/AVATARS)
+|--------------------------------------------------------------------------
+*/
+
+.heroSection_right {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.heroSection_right_img_one,
+.heroSection_right_img {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #ab79f7; /* Accent border */
+  box-shadow: 0 10px 25px rgba(133, 70, 217, 0.7);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  filter: grayscale(10%);
+}
+
+.heroSection_right_img_one {
+  width: 180px; /* Larger main image */
+  height: 180px;
+  box-shadow: 0 12px 30px rgba(106, 44, 207, 0.8);
+  order: 1; /* Center image dominance */
+}
+
+.heroSection_right_img_one:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 45px rgba(171, 121, 247, 1);
+  filter: grayscale(0);
+}
+
+.heroSection_right_img {
+  width: 140px;
+  height: 140px;
+  order: 2;
+}
+
+.heroSection_right_img:nth-child(2) {
+    order: 3;
+}
+
+.heroSection_right_img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 35px rgba(171, 121, 247, 0.8);
+  filter: grayscale(0);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE ADJUSTMENTS
+|--------------------------------------------------------------------------
+*/
+
+@media screen and (max-width: 960px) {
+  .home {
+    width: 90%;
+  }
+  .heroSection {
+    grid-template-columns: 1fr;
+    padding: 3rem 0;
+    margin: 2rem 0;
+    gap: 3rem;
+  }
+  .heroSection_left {
+    padding: 0 0.5rem;
+    text-align: center;
+    /* Center the max-width element */
+    margin: 0 auto;
+  }
+  .heroSection_left p {
+    max-width: 100%;
+    margin: 1.5rem auto 0 auto;
+  }
+  .heroSection_left_btn {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+  .btn {
+    padding: 1rem 2.4rem;
+    font-size: 1rem;
+    min-width: 160px;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .home {
+    width: 95%;
+  }
+  .heroSection_left h1 {
+    font-size: 2.8rem;
+  }
+  .heroSection_left p {
+    font-size: 1.1rem;
+  }
+  .heroSection_right_img_one,
+  .heroSection_right_img {
+    width: 100px;
+    height: 100px;
+  }
+  .heroSection_right_img_one {
+      width: 130px;
+      height: 130px;
+  }
+}

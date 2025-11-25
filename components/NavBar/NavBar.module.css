@@ -1,0 +1,103 @@
+.navBar {
+  width: 90%; /* Increased width for more prominence */
+  max-width: 1300px;
+  margin: 2rem auto 2rem auto; /* Adjusted margin */
+  
+  /* Richer, defined violet gradient */
+  background: linear-gradient(135deg, rgba(84, 51, 125, 0.9), rgba(138, 70, 203, 0.8));
+  
+  /* Glass/Frosted effect */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
+  border-radius: 1rem; /* Smoother corners */
+  padding: 1.25rem 3rem; /* Adjusted padding */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle white border */
+  
+  /* Multi-layer, deep shadow for a 'floating' effect */
+  box-shadow: 
+    0 15px 40px rgba(138, 70, 203, 0.6), /* Purple glow */
+    0 0 50px rgba(0, 0, 0, 0.2); /* Depth */
+  
+  font-family: 'Montserrat', sans-serif;
+  color: #f3f4f6; /* Lighter base text color */
+  user-select: none;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between; /* Ensures logo/left content stays on one side */
+  gap: 2rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  overflow-x: hidden;
+  z-index: 100; /* Ensure Navbar stays on top */
+}
+
+.navBar:hover {
+  /* Subtle change on hover for interaction cue */
+  box-shadow: 
+    0 20px 50px rgba(138, 70, 203, 0.8),
+    0 0 60px rgba(0, 0, 0, 0.3);
+}
+
+.navBar_box_right {
+  display: flex;
+  gap: 1.5rem;
+  font-weight: 700; /* Bolder for visibility */
+  color: #dbd2ff; /* Light, contrasting color */
+  align-items: center;
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.navBar_box_right p {
+  /* Inner box style: semi-transparent, deep purple background */
+  background-color: rgba(0, 0, 0, 0.3); 
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Defines the box edges */
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.8rem; /* Smoother radius */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  letter-spacing: 0.05em;
+  font-size: 0.95rem;
+  cursor: default;
+  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px; /* Slightly increased width */
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+/* Enhanced Mobile Responsiveness */
+@media screen and (max-width: 900px) {
+  .navBar {
+    width: 95%;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap; /* Allow wrapping */
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .navBar {
+    flex-direction: column; /* Stack all elements */
+    align-items: stretch;
+    padding: 1rem 1rem;
+  }
+  
+  /* Assuming the logo/left content is in a separate div, it will stretch. */
+
+  .navBar_box_right {
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%; /* Take full width when stacked */
+  }
+
+  .navBar_box_right p {
+    max-width: 100%; /* Allow full width of the navbar */
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,0 +1,237 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;300;400;600;700;800&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Root Vars: Color Palette */
+:root {
+  /* Core Colors - Enhanced for deeper contrast and vibrancy */
+  --primary: #8E44AD; /* Deep Violet (Base for gradients) */
+  --secondary: #A78BFA; /* Lighter Purple Accent (For hover/subtle lines) */
+  --accent: #00F5D4; /* Vibrant Cyan (Action/Focus/Highlight) */
+  
+  /* Backgrounds */
+  --bg: #0C0D2C; /* Very Dark Blue/Indigo (Night Sky Base) */
+  --bg-alt: #16183C; /* Darker Card/Input Background */
+  --bg-hero: #1e2051; /* Lighter Base for Hero Section */
+
+  /* Text & Utility */
+  --text: #F3F4F6;
+  --muted: #A3A3B4;
+  --error: #FF6B6B;
+
+  /* Spacing & Effects */
+  --radius: 1rem; /* Smoother, larger radius */
+  --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smoother transition curve */
+  
+  /* Unified Shadow Scheme (Deep glow & depth) */
+  --shadow-primary: 0 10px 30px rgba(142, 68, 173, 0.45);
+  --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(167, 139, 250, 0.1);
+}
+
+/* Global Reset & Base Styling */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif; /* Changed to Montserrat for body text */
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  min-height: 100vh;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
+
+/* Typography */
+h1, h2, h3, h4 {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700; /* Bolder headers */
+  letter-spacing: 1px; /* Tighter letter-spacing for clean look */
+  margin-top: 0;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+h1 { font-size: clamp(3rem, 7vw, 4.5rem); color: #fff; }
+h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); }
+h4 { font-size: 1.25rem; font-weight: 600; }
+
+p, ul, ol {
+  margin-bottom: 1.2rem;
+  color: var(--text);
+}
+
+body, input, button, textarea, select {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Container & Layout */
+.container {
+  width: min(94%, 1300px); /* Slightly wider container */
+  margin: 0 auto;
+  padding: 2.5rem 0;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Wider min card size */
+  gap: 2rem;
+}
+
+.section {
+  margin-bottom: 4rem;
+  padding: 2.5rem 0;
+}
+
+/* Unified Card Styling */
+.card {
+  background: var(--bg-alt);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle border for glass look */
+  
+  /* Use backdrop filter for a frosted effect when cards overlap */
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+
+  box-shadow: var(--shadow-card);
+  padding: 2rem;
+  transition: all var(--transition);
+}
+
+.card:hover {
+  box-shadow: 0 15px 40px rgba(167, 139, 250, 0.2), 0 0 20px rgba(0, 0, 0, 0.6);
+  transform: translateY(-4px); /* Smoother, less aggressive lift */
+}
+
+/* Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), #1de9b6); /* Brighter, high-energy gradient */
+  border: none;
+  border-radius: 0.5rem;
+  color: var(--bg); /* Dark text on bright button for contrast */
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 700;
+  padding: 0.9rem 2.2rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 15px rgba(0, 245, 212, 0.4);
+  transition: all var(--transition);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background: linear-gradient(135deg, #1de9b6, var(--accent));
+  box-shadow: 0 8px 25px rgba(0, 245, 212, 0.8);
+  transform: translateY(-2px);
+  outline: 2px solid var(--primary); /* Use primary for accessible focus ring */
+  outline-offset: 3px;
+}
+
+/* Form Elements */
+input, select, textarea {
+  width: 100%;
+  background: var(--bg-alt);
+  border: 1px solid var(--secondary);
+  color: var(--text);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  transition: all var(--transition);
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  background: #191b45; /* Slightly lighter on focus */
+  box-shadow: 0 0 0 2px var(--accent);
+  outline: none;
+}
+
+/* Icon Styles */
+.icon {
+  color: var(--accent);
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px; /* Slightly wider scrollbar */
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-alt);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Responsive Hero / Section */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 350px;
+  
+  /* Radial gradient focusing on the center */
+  background: radial-gradient(circle at center, var(--bg-hero) 0%, var(--bg) 100%);
+  
+  border-radius: var(--radius);
+  box-shadow: 0 15px 50px rgba(34,10,80,0.4);
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 3rem;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 800;
+  color: var(--accent);
+  text-shadow: 0 0 15px rgba(0, 245, 212, 0.6);
+  margin-bottom: 1rem;
+}
+
+/* Utility/Misc */
+.muted { color: var(--muted); }
+.center { text-align: center; }
+
+/* Mobile Adjustments */
+@media (max-width: 900px) {
+  .container { padding: 1.5rem 0; }
+  .hero { min-height: 250px; }
+}
+
+@media (max-width: 600px) {
+  h1 { font-size: 2.5rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .section { padding: 1.5rem 0; }
+  .hero { padding: 2rem; }
+}

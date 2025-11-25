@@ -1,0 +1,224 @@
+.transfer_box {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 3rem;
+  padding: 4rem 1rem 3rem 1rem; /* Added top/bottom padding for separation */
+  max-width: 1000px; /* Slightly wider */
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+  color: #eeeeee;
+  user-select: none;
+}
+
+.transfer_box_left,
+.transfer_box_right {
+  /* Richer, deeper primary gradient for card background */
+  background: linear-gradient(145deg, rgba(74, 0, 224, 0.95), rgba(142, 45, 226, 0.85));
+  
+  /* Subtle glass effect for modern feel */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  padding: 2.5rem 3rem; /* Increased padding */
+  border-radius: 1.5rem; /* Smoother, larger radius */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle definition border */
+  
+  /* Deeper, multi-layered shadow */
+  box-shadow: 0 15px 40px rgba(138, 43, 226, 0.6), 0 0 50px rgba(74, 0, 224, 0.3);
+  
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem; /* Increased vertical spacing */
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.transfer_box_left:hover,
+.transfer_box_right:hover {
+  transform: translateY(-8px); /* More pronounced lift */
+  box-shadow: 0 20px 50px rgba(138, 43, 226, 0.8), 0 0 60px rgba(74, 0, 224, 0.5);
+}
+
+.transfer_box_left h2,
+.transfer_box_right h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem); /* Responsive font size */
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  color: #fff; /* Pure white header */
+  
+  /* Modern text depth effect */
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  user-select: none;
+}
+
+.transfer_box_left_box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem; /* Tighter spacing */
+  justify-content: space-between;
+}
+
+.transfer_box_left_box p {
+  flex: 1 1 48%; /* Ensures two items per row */
+  
+  /* Lighter, clearer glass card for info blocks */
+  background-color: rgba(255, 255, 255, 0.08); 
+  border: 1px solid rgba(255, 255, 255, 0.15); 
+  
+  padding: 1.5rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  color: #f3f4f6;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.transfer_box_left_box p:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.transfer_box_left_box span {
+  display: block;
+  margin-top: 1rem;
+  /* High-contrast, warm accent gradient */
+  background: linear-gradient(135deg, #ff005e, #ff7c00);
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px rgba(255, 92, 143, 0.6);
+}
+
+.zKrypt_img {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 70px; /* Slightly smaller */
+  height: 70px;
+  display: inline-block;
+  border: 3px solid #ff005e; /* Accent ring */
+  box-shadow: 0 0 15px #ff005e;
+}
+
+/*
+|--------------------------------------------------------------------------
+| RIGHT PANEL - FORM ELEMENTS
+|--------------------------------------------------------------------------
+*/
+
+.transfer_box_right {
+  /* Removed duplicate gradient here as it inherits from the group selector */
+  padding: 2.5rem;
+}
+
+.transfer_box_right input {
+  width: 100%;
+  /* Darker input field for contrast within the purple card */
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.8rem;
+  padding: 1.2rem 1.5rem;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #fff;
+  outline: none;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.transfer_box_right input::placeholder {
+  color: #d1d5db;
+  font-weight: 400;
+}
+
+.transfer_box_right input:focus {
+  /* High-contrast, vibrant pink focus ring */
+  border-color: #f107a3;
+  box-shadow: 0 0 15px rgba(241, 7, 163, 0.8), inset 0 2px 10px rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.transfer_box_right_btn {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.transfer_box_right_btn button {
+  /* Strong, high-contrast action button */
+  background: linear-gradient(135deg, #ff005e, #ff7c00); 
+  border: none;
+  padding: 1.5rem 3.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #fff;
+  border-radius: 1rem;
+  cursor: pointer;
+  box-shadow: 0 12px 35px rgba(255, 92, 143, 0.7);
+  user-select: none;
+  transition: all 0.4s ease;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  min-width: 250px;
+}
+
+.transfer_box_right_btn button:hover,
+.transfer_box_right_btn button:focus {
+  /* Shift to a softer, warmer hue on hover */
+  background: linear-gradient(135deg, #ff61a6, #ffb03b);
+  box-shadow: 0 18px 50px rgba(255, 182, 75, 1);
+  transform: translateY(-3px);
+  outline: none;
+}
+
+/*
+|--------------------------------------------------------------------------
+| MOBILE RESPONSIVENESS
+|--------------------------------------------------------------------------
+*/
+
+@media screen and (max-width: 900px) {
+  .transfer_box {
+    grid-template-columns: 1fr; /* Stack vertically */
+    padding: 2rem 1rem;
+    gap: 2rem;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .transfer_box_left,
+  .transfer_box_right {
+    padding: 2rem 1.5rem;
+    gap: 2rem;
+  }
+
+  .transfer_box_left h2,
+  .transfer_box_right h2 {
+    font-size: 2rem;
+  }
+  
+  .transfer_box_left_box {
+    flex-direction: column; /* Stack info boxes */
+    gap: 1rem;
+  }
+
+  .transfer_box_left_box p {
+    flex: 1 1 100%;
+    font-size: 1.1rem;
+    padding: 1rem;
+  }
+  
+  .transfer_box_right input {
+    font-size: 1.1rem;
+    padding: 1rem 1.2rem;
+  }
+
+  .transfer_box_right_btn button {
+    width: 100%;
+    padding: 1.2rem 0;
+    font-size: 1.2rem;
+  }
+}
