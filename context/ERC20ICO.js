@@ -1,5 +1,4 @@
 import React, { useState, useEffect, createContext } from "react";
-// Ethers V5 Import Fix
 import { ethers } from "ethers"; 
 import { zkryptAddress, zkryptABI } from "./constant";
 
@@ -11,7 +10,6 @@ export const ICOContext = createContext();
 export const ERC20ICONProvider = ({ children }) => {
   const [account, setAccount] = useState(undefined);
   const [holderArray, setHolderArray] = useState([]);
-  // Storing balances as strings now to preserve precision
   const [accountBallanc, setAccountBallanc] = useState("0"); 
   const [userId, setUserId] = useState(0);
   const [NoOfToken, setNoOfToken] = useState("0");
@@ -19,16 +17,15 @@ export const ERC20ICONProvider = ({ children }) => {
   const [TokenStandard, setTokenStandard] = useState("");
   const [TokenSymbol, setTokenSymbol] = useState("");
   const [TokenOwner, setTokenOwner] = useState("");
-  const [TokenOwnerBal, setTokenOwnerBal] = useState("0"); // Storing as string
+  const [TokenOwnerBal, setTokenOwnerBal] = useState("0");
   const [completed, setCompleted] = useState(false);
 
-  // Ethers V5 Utility function alias
   const parseUnits = ethers.utils.parseUnits;
   const formatUnits = ethers.utils.formatUnits;
 
   const connectWallet = async () => {
     if (!window.ethereum) {
-      alert("Please install MetaMask.");
+      console.error("Please install MetaMask.");
       return;
     }
     try {
@@ -44,6 +41,18 @@ export const ERC20ICONProvider = ({ children }) => {
     } catch (err) {
       console.error("Wallet connection error:", err);
     }
+  };
+
+  const disconnectWallet = () => {
+    setAccount(null);
+    localStorage.removeItem("connectedAccount");
+    setAccountBallanc("0"); 
+    setTokenName("");
+    setTokenSymbol("");
+    setTokenOwnerBal("0");
+    setNoOfToken("0");
+    setHolderArray([]);
+    setCompleted(false);
   };
 
   useEffect(() => {
@@ -89,19 +98,24 @@ export const ERC20ICONProvider = ({ children }) => {
   useEffect(() => {
     if (!account) return;
 
+    setAccountBallanc("0"); 
+    setTokenName("");
+    setTokenSymbol("");
+    setTokenOwnerBal("0");
+    setNoOfToken("0");
+    setHolderArray([]);
+
     const fetchData = async () => {
       setCompleted(true);
       try {
-        // Ethers V5 Provider Fix
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner(); 
         
         const contract = fetchzKryptContract(signer);
 
-        // Fetch all BigNumber values
         const [
           balanceBN,
-          totalHolderBN,
+          userIdAddress,
           supplyBN,
           name,
           symbol,
@@ -121,13 +135,12 @@ export const ERC20ICONProvider = ({ children }) => {
           contract.getTokenHolder(), 
         ]);
 
-        // --- FORMATTING FIX: CONVERT WEI (BigNumber) TO READABLE TOKENS (String) ---
         const readableBalance = formatUnits(balanceBN, 18);
         const readableSupply = formatUnits(supplyBN, 18);
         const readableOwnerBal = formatUnits(balanceOwnerBN, 18);
         
         setAccountBallanc(readableBalance);
-        setUserId(Number(totalHolderBN)); // This is a count, still Number
+        setUserId(1); 
         setNoOfToken(readableSupply);
         setTokenName(name);
         setTokenSymbol(symbol);
@@ -135,20 +148,29 @@ export const ERC20ICONProvider = ({ children }) => {
         setTokenOwner(ownerOfContract);
         setTokenOwnerBal(readableOwnerBal);
 
-        // Fetch individual holder data
-        const holdersData = await Promise.all(
-          allTokenHolder.map((el) => contract.getTokenHolderData(el))
-        );
-
-        // Map the results back to the expected object structure
-        const formattedHoldersData = holdersData.map(data => ({
-            tokenId: Number(data[0]),
-            address: data[1],
-            // FIX: Format the totalToken balance for the holder array
-            totalToken: formatUnits(data[2], 18), 
-            tokenHolder: data[3]
-        }));
+        const addressesToTrack = [
+          ownerOfContract,
+          account,
+        ];
         
+        const uniqueAddresses = [...new Set(addressesToTrack)].filter(addr => addr && addr !== ethers.constants.AddressZero);
+
+        const holderPromises = uniqueAddresses.map(async (address, index) => {
+          const rawBalance = await contract.balanceOf(address);
+          const balance = formatUnits(rawBalance, 18);
+
+          if (parseFloat(balance) > 0) {
+            return {
+              tokenId: index + 1,
+              address: address,
+              totalToken: balance,
+              tokenHolder: true
+            };
+          }
+          return null;
+        });
+
+        const formattedHoldersData = (await Promise.all(holderPromises)).filter(h => h !== null);
         setHolderArray(formattedHoldersData);
 
       } catch (err) {
@@ -172,13 +194,11 @@ export const ERC20ICONProvider = ({ children }) => {
     try {
       setCompleted(true);
       
-      // Ethers V5 Provider Fix
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner(); 
       
       const contract = fetchzKryptContract(signer);
 
-      // We still use parseUnits when sending tokens (correctly multiplies by 10^18)
       const amount = parseUnits(value.toString(), 18); 
       
       const tx = await contract.transfer(address, amount);
@@ -196,12 +216,58 @@ export const ERC20ICONProvider = ({ children }) => {
       setCompleted(false);
     }
   };
+  
+  const fundFaucet = async (amount) => {
+    if (!account || account.toLowerCase() !== TokenOwner.toLowerCase()) {
+      console.error("Only the token owner can fund the faucet.");
+      return;
+    }
+    if (!amount || amount <= 0) {
+      console.error("Invalid funding amount.");
+      return;
+    }
+    
+    try {
+      setCompleted(true);
+      
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner(); 
+      const contract = fetchzKryptContract(signer);
+
+      const fundAmountBN = parseUnits(amount.toString(), 18); 
+      
+      console.log(`Initiating transfer of ${amount} ZKT to contract (${zkryptAddress})...`);
+      
+      const overrides = {
+        gasLimit: 200000, 
+      };
+      
+      const tx = await contract.transfer(zkryptAddress, fundAmountBN, overrides);
+      
+      console.log("Waiting for transaction confirmation...");
+      await tx.wait();
+
+      console.log(`✅ Faucet funded successfully with ${amount} ZKT!`);
+      window.location.reload(); 
+      
+    } catch (err) {
+      console.error("Faucet funding error:", err);
+      if (err.code === 4001) {
+        console.log("Funding transaction rejected by user.");
+      } else {
+        console.log("Funding failed, check console for details."); 
+      }
+    } finally {
+      setCompleted(false);
+    }
+  };
 
   return (
     <ICOContext.Provider
       value={{
         account,
         connectWallet,
+        disconnectWallet,
         holderArray,
         accountBallanc,
         userId,
@@ -212,6 +278,7 @@ export const ERC20ICONProvider = ({ children }) => {
         TokenOwner,
         TokenOwnerBal,
         transferToken,
+        fundFaucet, 
         completed,
       }}
     >
