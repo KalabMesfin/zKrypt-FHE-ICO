@@ -1,0 +1,365 @@
+/* -------------------------------------------------------------------------- */
+/* TYPOGRAPHY & COLORS - Using a Dark/DeFi Palette */
+/* -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap');
+
+/* Define core variables for easy color management */
+:root {
+    --color-dark-bg: #0d121c;
+    --color-card-bg: #1c2333;
+    --color-border: #36415a;
+    --color-info-bg: #293245;
+    --color-accent: #3b82f6;
+    --color-highlight: #f59e0b;
+    --color-text-light: #e5e7eb;
+    --color-text-subtle: #9ca3af;
+    --color-error: #f87171;
+    --color-error-dark: #b91c1c;
+    --color-success: #10b981;
+}
+
+/* -------------------------------------------------------------------------- */
+/* BASE LAYOUT & CARD STYLES */
+/* -------------------------------------------------------------------------- */
+.container {
+    min-height: 100vh;
+    background-color: var(--color-dark-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.card {
+    background-color: var(--color-card-bg);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 
+        0 10px 15px -3px rgba(0, 0, 0, 0.4),
+        0 4px 6px -2px rgba(0, 0, 0, 0.2),
+        0 0 40px rgba(59, 130, 246, 0.05);
+    width: 100%;
+    max-width: 32rem;
+    color: var(--color-text-light);
+    border: 1px solid var(--color-border);
+    transition: all 0.3s ease-in-out;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--color-highlight);
+    letter-spacing: -0.025em;
+}
+
+.subtitle {
+    text-align: center;
+    color: var(--color-text-subtle);
+    margin-bottom: 2.5rem;
+    font-size: 1rem;
+}
+
+/* -------------------------------------------------------------------------- */
+/* STATUS BOX STYLES */
+/* -------------------------------------------------------------------------- */
+.statusBox {
+    padding: 1.25rem;
+    border-radius: 0.75rem;
+    margin-bottom: 2rem;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.8), 0 1px 1px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.statusContent {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.statusIconWrapper {
+    flex-shrink: 0;
+}
+
+.statusIconWrapper svg {
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.statusMessage {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.statusChecking {
+    background-color: #2e3a51;
+    color: var(--color-text-subtle);
+    border-color: #4b5563;
+}
+.statusClaiming {
+    background-color: #4c1d95;
+    color: #d8b4fe;
+    border-color: #a78bfa;
+}
+.statusCanClaim {
+    background-color: #1e40af;
+    color: #93c5fd;
+    border-color: #60a5fa;
+}
+.statusSufficient {
+    background-color: #065f46;
+    color: #a7f3d0;
+    border-color: #34d399;
+}
+.statusDisconnected,
+.statusError {
+    background-color: #7f1d1d;
+    color: #fca5a5;
+    border-color: #f87171;
+}
+
+/* -------------------------------------------------------------------------- */
+/* INFO BOX STYLES */
+/* -------------------------------------------------------------------------- */
+.infoBox {
+    font-size: 0.875rem;
+    color: var(--color-text-light);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem;
+    background-color: var(--color-info-bg);
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-border);
+    line-height: 1.4;
+}
+
+.infoItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.infoItem:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.infoLabel {
+    color: var(--color-text-subtle);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.addressText {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.75rem;
+    color: #c4b5fd;
+    word-break: break-all;
+    text-align: right;
+    max-width: 60%; 
+}
+
+.balanceText {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--color-highlight);
+    text-align: right;
+}
+
+/* -------------------------------------------------------------------------- */
+/* BUTTON STYLES & GLOW EFFECTS */
+/* -------------------------------------------------------------------------- */
+.baseButton {
+    width: 100%;
+    margin-top: 2.5rem;
+    font-weight: 700;
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.claimButton {
+    composes: baseButton;
+    color: var(--color-dark-bg);
+    background-color: var(--color-highlight);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.7), 0 0 5px rgba(245, 158, 11, 0.4);
+}
+.claimButton:hover {
+    background-color: #fcd34d;
+    box-shadow: 0 0 20px rgba(245, 158, 11, 1), 0 0 8px rgba(245, 158, 11, 0.6);
+    transform: translateY(-2px);
+}
+
+.proceedButton, 
+.connectButton {
+    composes: baseButton;
+    color: var(--color-text-light);
+    background-color: var(--color-accent);
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5), 0 0 5px rgba(59, 130, 246, 0.3);
+}
+.proceedButton:hover,
+.connectButton:hover {
+    background-color: #2563eb;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 8px rgba(59, 130, 246, 0.5);
+    transform: translateY(-2px);
+}
+
+.retryButton {
+    composes: baseButton;
+    color: var(--color-text-light);
+    background-color: #ef4444;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
+}
+.retryButton:hover {
+    background-color: var(--color-error-dark);
+    transform: translateY(-2px);
+}
+
+.waitingButton {
+    composes: baseButton;
+    background-color: #4b5563;
+    color: #ffffff;
+    cursor: not-allowed;
+    opacity: 0.6;
+    box-shadow: none;
+    transform: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* DISCONNECT SECTION */
+/* -------------------------------------------------------------------------- */
+.disconnectSection {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(102, 126, 234, 0.3);
+  text-align: center;
+}
+
+.disconnectButton {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 0.7rem;
+  border: 2px solid transparent;
+  background: linear-gradient(135deg, #7f53ac, #647dee);
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  transition:
+    background 0.4s ease,
+    box-shadow 0.3s ease,
+    transform 0.15s ease,
+    border-color 0.3s ease;
+  box-shadow: 0 0 10px rgba(111, 66, 193, 0.5);
+  letter-spacing: 0.03em;
+}
+
+.disconnectButton:hover {
+  background: linear-gradient(135deg, #647dee, #7f53ac);
+  box-shadow: 0 0 18px rgba(111, 66, 193, 0.8);
+  border-color: #7f53ac;
+  transform: translateY(-3px);
+}
+
+.disconnectButton:focus-visible {
+  outline: none;
+  border-color: #a48ffc;
+  box-shadow: 0 0 25px #a48ffc;
+}
+
+.disconnectButton:active {
+  background: linear-gradient(135deg, #5c46c1, #5b6ee3);
+  box-shadow: 0 0 15px rgba(92, 70, 193, 0.7);
+  transform: translateY(0);
+}
+
+/* -------------------------------------------------------------------------- */
+/* ICONS & ANIMATIONS */
+/* -------------------------------------------------------------------------- */
+.defaultIconSize {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.loaderIconSmall {
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline;
+    margin-right: 0.5rem;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@media (max-width: 640px) {
+    .card {
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+    }
+    .title {
+        font-size: 1.5rem;
+    }
+    .subtitle {
+        font-size: 0.875rem;
+        margin-bottom: 1.5rem;
+    }
+    .statusMessage {
+        font-size: 1rem;
+    }
+    .statusBox {
+        padding: 1rem;
+    }
+    .baseButton {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+        margin-top: 2rem;
+    }
+    .addressText {
+        font-size: 0.7rem;
+    }
+}
+
+.clickableLink {
+  color: var(--color-highlight);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+  display: inline-block;
+  margin: 0 0.125rem;
+}
+
+.clickableLink:hover {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: white;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.clickableLink:active {
+  transform: translateY(0);
+}
