@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "fhevmjs": "^latest",
     "ethers": "^5.8.0",
     "next": "16.0.4",
     "react": "19.2.0",
