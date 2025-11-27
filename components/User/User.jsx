@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 
-//INTERNAL IMPORT
 import Style from "./User.module.css";
 import zKrypt from "../../assets/zKrypt.jpg";
 

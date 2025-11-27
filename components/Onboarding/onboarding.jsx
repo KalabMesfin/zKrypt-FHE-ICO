@@ -4,8 +4,6 @@ import styles from "./Onboarding.module.css";
 import metamask from "../../assets/metamask.png";
 import { ICOContext } from "../../context/ERC20ICO";
 
-// --- SVG Definitions (Kept as provided) ---
-
 const ZKRYPT_LOGO_SVG = (
   <svg
     className={styles.logoSVG}
@@ -13,7 +11,7 @@ const ZKRYPT_LOGO_SVG = (
     viewBox="0 0 24 24"
     aria-hidden="true"
   >
-    <path d="M12 1.5a4.5 4.5 0 00-4.5 4.5v3h9v-3a4.5 4.5 0 00-4.5-4.5zM7.5 10.5V6a4.5 4.5 0 019 0v4.5H7.5zm1 7.5h7V13h-7v5zm-2-7h11c.828 0 1.5.672 1.5 1.5v6c0 .828-.672 1.5-1.5 1.5h-11c-.828 0-1.5-.672-1.5-1.5v-6c0-.828.672-1.5 1.5-1.5z" />
+    <path d="M12 1.5a4.5 4.5 0 00-4.5 4.5v3h9v-3a4.5 4.5 0 00-4.5-4.5zM7.5 10.5V6a4.5 4.5 0 019 0v4.5H7.5zm1 7.5h7V13h-7v5zm-2-7h11c.828 0 1.5.672 1.5 1.5v6c0 .828-.672 1.5-1.5 1.5h-11c-.828 0-1.5-.672-1.5-1.5v-6c0-.828.672 1.5 1.5-1.5z" />
   </svg>
 );
 
@@ -34,12 +32,9 @@ const FHE_ICON_SVG = (
   </svg>
 );
 
-// --- Component Start ---
-
 export default function Onboarding() {
   const { connectWallet } = useContext(ICOContext);
 
-  // Status message states updated to use new CSS color classes
   const [status, setStatus] = useState({
     text: "Please connect your wallet to continue.",
     color: styles.textGray,
@@ -50,26 +45,27 @@ export default function Onboarding() {
     if (loading) return;
     
     setLoading(true);
-    // Use the new class name
     setStatus({ text: "Requesting connection...", color: styles.textIndigo });
 
-    const connectedAccount = await connectWallet();
+    try {
+      const connectedAccount = await connectWallet();
 
-    if (!connectedAccount) {
-      // Use the new class name
-      setStatus({ text: "Connection denied or failed.", color: styles.textRed });
+      if (!connectedAccount) {
+        setStatus({ text: "Connection denied or failed.", color: styles.textRed });
+      } else {
+        setStatus({ text: "Wallet connected successfully!", color: styles.textGreen });
+      }
+    } catch (error) {
+      setStatus({ text: "Connection error. Please try again.", color: styles.textRed });
+    } finally {
       setLoading(false);
     }
-    // Note: If connection is successful, the parent component (e.g., index.js) 
-    // should detect the account change and handle navigation away from this screen.
   };
 
   return (
-    // Uses .container to center the card on the page
     <div className={styles.container}>
       <article className={styles.card} role="main" aria-label="Wallet onboarding">
         
-        {/* Left panel: Informational/Branding */}
         <aside className={styles.leftPanel}>
           <div>
             <div className={styles.logoContainer}>
@@ -92,12 +88,11 @@ export default function Onboarding() {
           <section className={styles.securityNotice} aria-label="Security notice">
             <h3>⚠️ SECURITY NOTICE (POC)</h3>
             <p>
-              <strong>zKrypt is a Proof-of-Concept (POC).</strong> Connect only a burner wallet with no assets. Proceed at your own risk.
+              <strong>zKrypt is a Proof-of-Concept (POC).</strong> Connect only a burner wallet with no assets.
             </p>
           </section>
         </aside>
 
-        {/* Right panel: Connect Action */}
         <main className={styles.rightPanel}>
           <header className={styles.header}>
             <h1>Connect Your Wallet</h1>
@@ -105,7 +100,7 @@ export default function Onboarding() {
           </header>
           
           <button
-            className={styles.metamaskButton} // Uses new professional button styles
+            className={styles.metamaskButton}
             onClick={handleMetaMaskConnect}
             disabled={loading}
             aria-busy={loading}

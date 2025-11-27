@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-// INTERNAL IMPORT
 import Style from "./Transfer.module.css";
 import zKrypt from "../../assets/zKrypt.jpg";
 

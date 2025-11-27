@@ -1,52 +1,31 @@
-/*
-|--------------------------------------------------------------------------
-| GLOBAL CONTAINER & BASE
-|--------------------------------------------------------------------------
-| Applying the deep violet, shadowed, glass-like base to the card.
-*/
-
 .container {
-  /* Fills the viewport and centers the card */
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background-color: #1a1a2e; /* Dark background behind the modal */
+  background-color: #1a1a2e;
 }
 
 .card {
-  max-width: 960px; /* Wider for the two-column layout */
+  max-width: 960px;
   width: 100%;
   min-height: 500px;
-  
-  /* Deep, professional violet gradient (from previous CSS) */
   background: linear-gradient(135deg, rgba(91, 33, 182, 0.95), rgba(124, 58, 237, 0.85));
-  
-  /* Glassmorphism/Frosted effect */
-  backdrop-filter: blur(10px); 
+  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  
   border-radius: 1.5rem;
   border: 1px solid rgba(191, 180, 255, 0.15);
   box-shadow: 0 30px 80px rgba(124, 58, 237, 0.6), 0 0 100px rgba(91, 33, 182, 0.3);
-  
   color: #f3f4f6;
   font-family: 'Montserrat', sans-serif;
   display: grid;
-  grid-template-columns: 1fr 1fr; /* Two equal columns for desktop */
+  grid-template-columns: 1fr 1fr;
   overflow: hidden;
 }
 
-/*
-|--------------------------------------------------------------------------
-| LEFT PANEL (Features & Security)
-|--------------------------------------------------------------------------
-| Darker, more informational background.
-*/
-
 .leftPanel {
-  background: rgba(0, 0, 0, 0.25); /* Slightly darker overlay for separation */
+  background: rgba(0, 0, 0, 0.25);
   padding: 3rem;
   display: flex;
   flex-direction: column;
@@ -64,7 +43,7 @@
 .logoSVG {
   width: 2.2rem;
   height: 2.2rem;
-  color: #a78bfa; /* Violet accent */
+  color: #a78bfa;
 }
 
 .title {
@@ -86,7 +65,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: rgba(124, 58, 237, 0.3); /* Lighter accent color for feature box */
+  background: rgba(124, 58, 237, 0.3);
   padding: 1rem 1.5rem;
   border-radius: 0.75rem;
   border-left: 5px solid #a78bfa;
@@ -130,12 +109,6 @@
   margin: 0 0 0.5rem 0;
 }
 
-/*
-|--------------------------------------------------------------------------
-| RIGHT PANEL (Connection)
-|--------------------------------------------------------------------------
-*/
-
 .rightPanel {
   padding: 3rem;
   display: flex;
@@ -159,7 +132,6 @@
   margin: 0 0 1.5rem 0;
 }
 
-/* Button styles inspired by the previous professional button */
 .metamaskButton {
   display: inline-flex;
   align-items: center;
@@ -168,10 +140,7 @@
   border-radius: 3rem;
   font-weight: 700;
   font-size: 1.2rem;
-  
-  /* Primary deep violet gradient */
   background-image: linear-gradient(135deg, #a78bfa, #7c3aed);
-  
   box-shadow: 0 10px 30px rgba(124, 58, 237, 0.5);
   color: #fff;
   border: none;
@@ -195,30 +164,22 @@
 }
 
 .metamaskIcon {
-  filter: brightness(1.2); /* Enhance MetaMask logo visibility */
+  filter: brightness(1.2);
 }
 
-/* Status message styles */
 .statusMessage {
   font-size: 0.95rem;
   font-weight: 500;
-  min-height: 1.5rem; /* Prevents layout shift */
+  min-height: 1.5rem;
 }
 
 .textGray { color: #d1d5db; }
 .textIndigo { color: #818cf8; }
 .textRed { color: #f87171; }
 
-
-/*
-|--------------------------------------------------------------------------
-| RESPONSIVENESS (Mobile First)
-|--------------------------------------------------------------------------
-*/
-
 @media screen and (max-width: 992px) {
   .card {
-    grid-template-columns: 1fr; /* Stack panels vertically on smaller screens */
+    grid-template-columns: 1fr;
     max-width: 500px;
   }
   
