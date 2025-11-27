@@ -1,4 +1,6 @@
-import React, { useContext } from "react";
+'use client';
+
+import React, { useContext, useState, useEffect } from "react";
 import Image from "next/image";
 
 import { ICOContext } from "../context/ERC20ICO";
@@ -9,6 +11,9 @@ import NavBar from "../components/NavBar/NavBar";
 import User from "../components/User/User";
 import Transfer from "../components/Transfer/Transfer";
 import Onboarding from "../components/Onboarding/onboarding";
+import FaucetApp from "../components/Faucet/FaucetApp";
+
+const REDIRECT_THRESHOLD_DISPLAY = 100; 
 
 const Home = () => {
   const {
@@ -20,10 +25,13 @@ const Home = () => {
     TokenOwnerBal,
     holderArray,
     transferToken,
+    accountBallanc, 
+    completed,
+    disconnectWallet,
   } = useContext(ICOContext);
 
-  // CASE 1: Wallet is still being checked (Undefined)
-  if (account === undefined) {
+  // Simplified Loading Check & Disconnected State
+  if (account === undefined || completed) {
     return (
       <div
         className={Style.home}
@@ -34,17 +42,31 @@ const Home = () => {
           alignItems: "center",
         }}
       >
-        <p>Loading wallet connection...</p>
+        <p>{account === undefined ? "Loading wallet connection..." : "Loading account data..."}</p>
       </div>
     );
   }
 
-  // CASE 2: Wallet check finished, but no user connected (Null)
+  // Show Onboarding if account is null (disconnected)
   if (account === null) {
     return <Onboarding />;
   }
 
-  // CASE 3: User Connected
+  // Faucet redirect logic: Show Faucet if balance < 100 ZKT
+  const isBalanceInsufficient = parseFloat(accountBallanc) < REDIRECT_THRESHOLD_DISPLAY;
+
+  if (isBalanceInsufficient) {
+    return (
+      <FaucetApp
+        key={account}
+        account={account}
+        onClaimComplete={() => window.location.reload()} 
+        disconnectWallet={disconnectWallet}
+      />
+    );
+  }
+
+  // MAIN APP RENDER (Balance >= 100 ZKT)
   return (
     <>
       <NavBar />
@@ -56,7 +78,11 @@ const Home = () => {
               Connected Account: {account?.slice(0, 6)}...{account?.slice(-4)}
             </p>
             <p>
-              The first ICO powered by Zama's Fully Homomorphic Encryption (FHE). Invest and transact with absolute data privacy, ensuring your computations remain confidential on-chain.
+              Balance: {parseFloat(accountBallanc).toLocaleString()} ZKT
+            </p>
+            <p>
+              The first ICO powered by Zama's Fully Homomorphic Encryption (FHE). Invest and transact with absolute data privacy,
+              ensuring your computations remain confidential on-chain.
             </p>
 
             <div className={Style.heroSection_left_btn}>
