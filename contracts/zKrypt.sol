@@ -1,55 +1,56 @@
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.20;
+pragma solidity ^0.8.0;
 
-contract zKrypt {
-    string public name = "zKrypt";
-    string public symbol = "ZKT";
-    string public standard = "zKrypt v0.1";
-    // ADDED: Decimals is required for MetaMask auto-detection
-    uint8 public decimals = 18; 
-    uint256 public totalSupply;
-    address public ownerOfContract;
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/utils/Context.sol";
 
-    mapping(address => uint256) public balanceOf;
-    mapping(address => mapping(address => uint256)) public allowance;
+contract ZkryptContract is Context, ERC20, Ownable {
+    uint256 public dripAmount;
+    uint256 public constant DECIMALS = 18;
 
-    event Transfer(address indexed _from, address indexed _to, uint256 _value);
-    event Approval(address indexed _owner, address indexed _spender, uint256 _value);
-
-    constructor(uint256 _initialSupply) {
-        ownerOfContract = msg.sender;
-        // When using 18 decimals, we typically multiply the supply by 10^18
-        // If you pass "1000" in Remix, that means 1000 * 10^18 (Wei)
-        totalSupply = _initialSupply * (10 ** uint256(decimals));
-        balanceOf[msg.sender] = totalSupply;
+    constructor(
+        uint256 _initialSupply, 
+        uint256 _initialDripAmount
+    ) ERC20("Zkrypt Token", "ZKT") Ownable(_msgSender()) {
+        _mint(_msgSender(), _initialSupply * 10**DECIMALS);
+        dripAmount = _initialDripAmount * 10**DECIMALS;
     }
 
-    function transfer(address _to, uint256 _value) public returns (bool success) {
-        require(balanceOf[msg.sender] >= _value, "Insufficient balance");
-
-        balanceOf[msg.sender] -= _value;
-        balanceOf[_to] += _value;
-
-        emit Transfer(msg.sender, _to, _value);
-        return true;
+    // Frontend compatibility functions
+    function standard() public pure returns (string memory) {
+        return "ERC-20";
     }
 
-    function approve(address _spender, uint256 _value) public returns (bool success) {
-        allowance[msg.sender][_spender] = _value;
-
-        emit Approval(msg.sender, _spender, _value);
-        return true;
+    function ownerOfContract() public view returns (address) {
+        return owner();
+    }
+    
+    function getTokenHolder() public view returns (address) {
+        return owner();
+    }
+    
+    function _userId() public view returns (address) {
+        return owner();
+    }
+    
+    function setDripAmount(uint256 _newDripAmount) public onlyOwner {
+        dripAmount = _newDripAmount * 10**DECIMALS;
     }
 
-    function transferFrom(address _from, address _to, uint256 _value) public returns (bool success) {
-        require(balanceOf[_from] >= _value, "Insufficient balance");
-        require(allowance[_from][msg.sender] >= _value, "Allowance exceeded");
+    // FIXED FAUCET: Contract holds its own tokens for distribution
+    function requestTokens() public {
+        require(balanceOf(address(this)) >= dripAmount, "Faucet: Insufficient contract balance");
+        _transfer(address(this), _msgSender(), dripAmount);
+    }
 
-        balanceOf[_from] -= _value;
-        balanceOf[_to] += _value;
-        allowance[_from][msg.sender] -= _value;
+    // Owner funding function - send tokens directly to contract
+    function fundFaucet(uint256 amount) public onlyOwner {
+        _transfer(_msgSender(), address(this), amount);
+    }
 
-        emit Transfer(_from, _to, _value);
-        return true;
+    // Emergency withdrawal for owner
+    function withdrawTokens(uint256 amount) public onlyOwner {
+        _transfer(address(this), _msgSender(), amount);
     }
 }
