@@ -1,5 +1,8 @@
-import zkrypt from "./zKrypt.json";
+import ZKT from "./zKrypt.json"
 
-export const zkryptAddress = "0x40a4741265D93fcdf276ecEF5736Ab64F370CfE2";
+export const ZKTAddress = "0xb71326e46E5E757F97A63e93A0e2678191DC2970"
+export const ZKTABI = ZKT
 
-export const zkryptABI = zkrypt;
+export const zkryptAddress = "0xb71326e46E5E757F97A63e93A0e2678191DC2970";
+
+export const zkryptABI = ZKT;
