@@ -8,7 +8,8 @@ const fetchzKryptContract = (signerOrProvider) =>
 export const ICOContext = createContext();
 
 export const ERC20ICONProvider = ({ children }) => {
-  const [account, setAccount] = useState(undefined);
+  const [account, setAccount] = useState(null); // ✅ Changed to null
+  const [isDisconnected, setIsDisconnected] = useState(false); // ✅ NEW: Track disconnect state
   const [holderArray, setHolderArray] = useState([]);
   const [accountBallanc, setAccountBallanc] = useState("0"); 
   const [userId, setUserId] = useState(0);
@@ -24,6 +25,10 @@ export const ERC20ICONProvider = ({ children }) => {
   const formatUnits = ethers.utils.formatUnits;
 
   const connectWallet = async () => {
+    // ✅ Reset disconnect state on new connect
+    setIsDisconnected(false);
+    localStorage.removeItem("walletDisconnected");
+    
     if (!window.ethereum) {
       console.error("Please install MetaMask.");
       return;
@@ -43,24 +48,51 @@ export const ERC20ICONProvider = ({ children }) => {
     }
   };
 
-  const disconnectWallet = () => {
-    setAccount(null);
-    localStorage.removeItem("connectedAccount");
-    setAccountBallanc("0"); 
-    setTokenName("");
-    setTokenSymbol("");
-    setTokenOwnerBal("0");
-    setNoOfToken("0");
-    setHolderArray([]);
-    setCompleted(false);
+  // ✅ FIXED DISCONNECT - Prevents auto-reconnect
+  const disconnectWallet = async () => {
+    try {
+      setIsDisconnected(true); // ✅ Block auto-reconnect
+      localStorage.setItem("walletDisconnected", "true"); // ✅ Persist disconnect
+      
+      // MetaMask permission revoke (soft disconnect)
+      if (window.ethereum?.request) {
+        await window.ethereum.request({
+          method: 'wallet_revokePermissions',
+          params: [{ eth_accounts: {} }]
+        });
+      }
+    } catch (error) {
+      console.log("Disconnect fallback:", error);
+    } finally {
+      // Clear all app state
+      setAccount(null);
+      setAccountBallanc("0"); 
+      setTokenName("");
+      setTokenSymbol("");
+      setTokenOwnerBal("0");
+      setNoOfToken("0");
+      setHolderArray([]);
+      setCompleted(false);
+      localStorage.removeItem("connectedAccount");
+    }
   };
 
+  // ✅ FIXED: Auto-connect with disconnect override
   useEffect(() => {
     const loadAccount = async () => {
-      if (!window.ethereum) {
+      if (!window.ethereum || isDisconnected) {
         setAccount(null); 
         return;
       }
+      
+      // ✅ Check if user explicitly disconnected
+      const wasDisconnected = localStorage.getItem("walletDisconnected");
+      if (wasDisconnected === "true") {
+        setIsDisconnected(true);
+        setAccount(null);
+        return;
+      }
+      
       try {
         const accounts = await window.ethereum.request({
           method: "eth_accounts",
@@ -82,10 +114,15 @@ export const ERC20ICONProvider = ({ children }) => {
       const onAccountsChanged = (accounts) => {
         if (accounts.length === 0) {
           localStorage.removeItem("connectedAccount");
+          localStorage.removeItem("walletDisconnected");
+          setIsDisconnected(false);
           setAccount(null);
         } else {
-          setAccount(accounts[0]);
-          localStorage.setItem("connectedAccount", accounts[0]);
+          // Only set if not manually disconnected
+          if (!isDisconnected) {
+            setAccount(accounts[0]);
+            localStorage.setItem("connectedAccount", accounts[0]);
+          }
         }
       };
       window.ethereum.on("accountsChanged", onAccountsChanged);
@@ -93,9 +130,9 @@ export const ERC20ICONProvider = ({ children }) => {
         window.ethereum.removeListener("accountsChanged", onAccountsChanged);
       };
     }
-  }, []);
+  }, [isDisconnected]); // ✅ Added isDisconnected dependency
 
-  // ✅ PERFECTLY WORKS WITH YOUR NEW CONTRACT
+  // ✅ YOUR EXISTING FUNCTIONS - UNCHANGED
   const tokenHolderData = async () => {
     try {
       console.log("🔄 Fetching token holders...");
@@ -105,13 +142,11 @@ export const ERC20ICONProvider = ({ children }) => {
       const signer = provider.getSigner();
       const contract = fetchzKryptContract(signer);
 
-      // Step 1: Get holder ADDRESSES array from your new contract
       const holderAddresses = await contract.getTokenHolder();
       console.log("📋 Holder addresses from contract:", holderAddresses);
 
       const tempHolderArray = [];
       
-      // Step 2: Get balance for EACH holder address
       for (let i = 0; i < holderAddresses.length; i++) {
         const address = holderAddresses[i];
         const balanceBN = await contract.balanceOf(address);
@@ -135,7 +170,6 @@ export const ERC20ICONProvider = ({ children }) => {
     } catch (error) {
       console.error("❌ Error getting holders:", error);
       
-      // Fallback: Show owner + connected account
       const fallbackHolders = [
         {
           tokenId: 1,
@@ -196,7 +230,6 @@ export const ERC20ICONProvider = ({ children }) => {
         setTokenOwner(ownerOfContract);
         setTokenOwnerBal(formatUnits(balanceOwnerBN, 18));
 
-        // ✅ Load holders from your NEW contract
         await tokenHolderData();
         
       } catch (err) {
