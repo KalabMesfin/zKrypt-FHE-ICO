@@ -7,7 +7,7 @@ import {
   zamaEncryptValue, 
   zamaDecryptValue, 
   initZamaFHE 
-} from "../utils/fhe";
+} from "../utils/FHE";
 import { ethers } from 'ethers';
 
 const NavBar = () => {
