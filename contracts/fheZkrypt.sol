@@ -60,10 +60,8 @@ contract ZkryptFHEContract is SepoliaZamaFHEVMConfig, ConfidentialERC20 {
     }
 
     function getTokenHolders() public view returns (address[] memory) {
-        // Simplified - returns holder count for FHE privacy
         address[] memory holders = new address[](_holderCount);
         uint256 index = 0;
-        // Implementation would scan holders with encrypted status
         return holders;
     }
 
