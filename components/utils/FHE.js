@@ -1,4 +1,5 @@
 import { initFhevm, createInstance } from 'fhevmjs';
+import { CONTRACTS, FHE_CONFIG, UI_CONSTANTS } from "./FHEConstants"
 
 export const FHE_CONSTANTS = {
   SEPOLIA_FHEVM: 11155111,
