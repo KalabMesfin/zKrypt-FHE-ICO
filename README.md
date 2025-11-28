@@ -72,6 +72,8 @@ zKrypt-FHE-ICO/
 │   │   └── User.module.css
 │   └── utils/            # FHE utilities
 │       └── FHE.js
+|       └── FHEConstants.js
+|       └── FHETransfer.js
 ├── context/              # React Contexts
 │   ├── FHEICOCore.js
 │   ├── constant.js
