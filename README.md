@@ -165,8 +165,6 @@ MIT License - see [LICENSE](LICENSE) © 2025 zKrypt FHE ICO
 
 <div align="center">
 
-<img src="https://via.placeholder.com/800x400/1e3a8a/ffffff?text=zKrypt+FHE+ICO" alt="zKrypt FHE ICO Banner" width="800"/>
-
 **zKrypt FHE ICO** - First FHEVM ICO on Zama blockchain
 
 ⭐ **Star this repo** - Production FHEVM ERC20 + Faucet!
