@@ -1,33 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Image from "next/image";
+import { useICO } from "../../context/FHEICOCore";
 
 import Style from "./Transfer.module.css";
 import zKrypt from "../../assets/zKrypt.jpg";
 
-const Transfer = ({
-  NoOfToken,
-  TokenName,
-  TokenStandard,
-  TokenSymbol,
-  TokenOwnerBal,
-  transferToken,
-}) => {
+const Transfer = () => {
   const [transferAccount, setTransferAccount] = useState("");
   const [tokenNumber, setTokenNumber] = useState("");
+  const { NoOfToken, TokenName, TokenStandard, TokenSymbol, TokenOwnerBal, transferToken, isFHELoading } = useICO();
 
-  const handleTransfer = () => {
+  const handleTransfer = async () => {
     if (!transferAccount || !tokenNumber) {
       alert("Please enter a valid address and token amount.");
       return;
     }
-    transferToken(transferAccount, tokenNumber);
+    await transferToken(transferAccount, tokenNumber);
   };
 
   return (
     <div className={Style.transfer}>
       <div className={Style.transfer_box}>
         <div className={Style.transfer_box_left}>
-          <h2>Token Analytics</h2>
+          <h2>FHE Token Analytics</h2>
           <div className={Style.transfer_box_left_box}>
             <p>
               Token Name
@@ -35,7 +30,7 @@ const Transfer = ({
             </p>
             <p>
               Token Supply
-              <span>{NoOfToken}</span>
+              <span>{isFHELoading ? "Decrypting..." : NoOfToken}</span>
             </p>
             <p>
               Token Symbol{" "}
@@ -51,17 +46,21 @@ const Transfer = ({
               </span>
             </p>
             <p>
-              Token Left <span>{TokenOwnerBal}</span>
+              Token Left <span>{isFHELoading ? "Decrypting..." : TokenOwnerBal}</span>
+            </p>
+            <p>
+              Standard <span>{TokenStandard}</span>
             </p>
           </div>
         </div>
         <div className={Style.transfer_box_right}>
-          <h2>Transfer Token</h2>
+          <h2>FHE Encrypted Transfer</h2>
           <input
             placeholder="Recipient Address"
             type="text"
             value={transferAccount}
             onChange={(e) => setTransferAccount(e.target.value)}
+            disabled={isFHELoading}
           />
           <input
             placeholder="Amount"
@@ -69,10 +68,18 @@ const Transfer = ({
             min={1}
             value={tokenNumber}
             onChange={(e) => setTokenNumber(e.target.value)}
+            disabled={isFHELoading}
           />
           <div className={Style.transfer_box_right_btn}>
-            <button onClick={handleTransfer}>Send Token</button>
+            <button onClick={handleTransfer} disabled={isFHELoading}>
+              {isFHELoading ? "Encrypting..." : "Send Encrypted Token"}
+            </button>
           </div>
+          {isFHELoading && (
+            <div className={Style.fhe_loading}>
+              <span>🔒 FHE Encryption Active (1.2s)</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
