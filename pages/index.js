@@ -3,13 +3,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import Image from "next/image";
 
-import { ICOContext } from "../context/ERC20ICO";
+import { ICOContext } from "../context/FHEICOCore";
 import Style from "../styles/index.module.css";
 import zKrypt from "../assets/zKrypt.jpg";
 
-import NavBar from "../components/NavBar/NavBar";
-import User from "../components/User/User";
-import Transfer from "../components/Transfer/Transfer";
+import NavBar from "../components/NavBar/FHENavBar";
+import User from "../components/User/FHEUser";
+import Transfer from "../components/Transfer/FHETransfer";
 import Onboarding from "../components/Onboarding/onboarding";
 import FaucetApp from "../components/Faucet/FaucetApp";
 
