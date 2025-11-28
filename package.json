@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "zKrypt",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -16,6 +16,9 @@
     "react-dom": "19.2.0"
   },
   "devDependencies": {
+    "@fhevm/solidity": "^0.8.0",
+    "fhevm-contracts": "^0.2.0",
+    "hardhat": "^2.22.0",
     "@netlify/plugin-nextjs": "^5.15.1",
     "eslint": "9.39.1",
     "eslint-config-next": "16.0.4"
