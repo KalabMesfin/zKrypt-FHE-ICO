@@ -1,14 +1,18 @@
-import hre from "hardhat";
+import { ethers } from "hardhat";
 
 async function main() {
-  const [deployer] = await hre.ethers.getSigners();
-  console.log("Deploying with account:", deployer.address);
+  const [deployer] = await ethers.getSigners();
+  console.log("Deploying ZkryptFHEContract with FHEVM to Sepolia...");
 
-  const ZKrypt = await hre.ethers.getContractFactory("zKrypt");
-  const zkrypt = await ZKrypt.deploy(1000000);
+  const ZkryptFHE = await ethers.getContractFactory("ZkryptFHEContract");
+  const zkrypt = await ZkryptFHE.deploy(1000000, 1000);
 
-  await zkrypt.deployed();
-  console.log("Contract deployed to:", zkrypt.address);
+  await zkrypt.waitForDeployment();
+  console.log(" ZkryptFHEContract deployed to:", await zkrypt.getAddress());
+  console.log(" FHEVM Sepolia Config: Active");
+  console.log(" Faucet drip: 1000 ZKT");
+  console.log(" Copy this address to your frontend:");
+  console.log(`CONTRACT_ADDRESS = "${await zkrypt.getAddress()}"`);
 }
 
 main().catch((error) => {
