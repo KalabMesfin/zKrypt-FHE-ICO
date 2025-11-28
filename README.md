@@ -47,6 +47,7 @@ This project, **zKrypt-FHE-ICO**, is a decentralized application (dApp) for an I
 
 ## 📁 Directory Layout
 
+```
 zKrypt-FHE-ICO/
 ├── assets/               # Static images & assets
 │   ├── lock.jpg          # Lock icon for UI
@@ -88,6 +89,7 @@ zKrypt-FHE-ICO/
 │   └── index.module.css
 ├── package.json          # NPM dependencies and scripts
 └── hardhat.config.js     # Hardhat + FHEVM config
+```
 
 ## 🚀 Quick Start
 
