@@ -1,6 +1,6 @@
 import "../styles/global.css";
 
-import { ERC20ICONProvider } from "../context/ERC20ICO"; 
+import { ERC20ICONProvider } from "../context/FHEICOCore"; 
 
 function MyApp({ Component, pageProps }) {
   return (
