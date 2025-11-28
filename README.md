@@ -13,14 +13,14 @@ Production-ready ICO platform with complete Zama FHEVM integration for encrypted
 ## 🌟 Live Production Demo
 
 **🎮 LIVE**: [https://zkrypt-fhe-ico.netlify.app/](https://zkrypt-fhe-ico.netlify.app/)
-
+```
 ✅ FHEVM Contract: 0x02EE6633802FFD5D698BfC38255A109d87fb0e95
 ✅ Sepolia Testnet - MetaMask ready
 ✅ Encrypted holder tracking
 ✅ 1000 ZKT faucet claims every request
 ✅ Auto holder count + analytics
 ✅ Mobile responsive FHE navbar
-
+```
 ## 🔒 FHEVM Features
 
 - `euint32` encrypted balances via ConfidentialERC20
@@ -94,16 +94,16 @@ zKrypt-FHE-ICO/
 ## 🚀 Quick Start
 
 ### Local Development
-
+```
 git clone https://github.com/kalabmesfin/zKrypt-FHE-ICO.git
 cd zKrypt-FHE-ICO
 npm install
 npm run dev
-
+```
 ### Contract Deployment
-
+```
 npx hardhat run scripts/deploy.js --network sepolia
-
+```
 ## 🧪 Smart Contracts
 
 | Contract | Features | Address |
@@ -126,9 +126,9 @@ npx hardhat run scripts/deploy.js --network sepolia
 - Hardhat 2.22.0 - FHE contract deployment
 
 **FHE Libraries:**
-@fhevm/solidity@^0.8.0
-fhevm-contracts@^0.2.0
-fhevmjs@^0.6.2
+- @fhevm/solidity@^0.8.0
+- fhevm-contracts@^0.2.0
+- fhevmjs@^0.6.2
 
 
 ## 📱 Production Features
