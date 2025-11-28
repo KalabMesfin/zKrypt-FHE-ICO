@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import Image from "next/image";
 import styles from "./Onboarding.module.css";
 import metamask from "../../assets/metamask.png";
-import { ICOContext } from "../../context/ERC20ICO";
+import { ICOContext } from "../../context/FHEICOCore";
 
 const ZKRYPT_LOGO_SVG = (
   <svg
