@@ -141,7 +141,7 @@ fhevmjs@^0.6.2
 - **Mobile Responsive** - Perfect navbar truncation
 
 ## 📊 Production Status
-
+```
 ✅ LIVE: https://zkrypt-fhe-ico.netlify.app/
 ✅ FHE Contract: 0x02EE6633802FFD5D698BfC38255A109d87fb0e95
 ✅ Encrypted Faucet: 1000 ZKT claims working
@@ -150,7 +150,7 @@ fhevmjs@^0.6.2
 ✅ MetaMask: Production wallet integration
 ✅ Mobile: Responsive FHE UI
 ✅ Verified: Sepolia FHEVM testnet
-
+```
 ## 🤝 Connect
 
 - **GitHub**: [kalabmesfin](https://github.com/kalabmesfin)
@@ -171,9 +171,7 @@ MIT License - see [LICENSE](LICENSE) © 2025 zKrypt FHE ICO
 
 ⭐ **Star this repo** - Production FHEVM ERC20 + Faucet!
 
-![zKrypt Logo](assets/zKrypt.jpg)
-
-**⚠️ Sepolia FHEVM Testnet - Production Architecture**
+**🔰 Sepolia FHEVM Testnet - Production Architecture**
 
 ---
 
