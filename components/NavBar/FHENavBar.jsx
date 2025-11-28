@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import Style from "./NavBar.module.css";
-import { ICOContext } from "../../context/ERC20ICO";
+import { ICOContext } from "../../context/FHEICOCore";
 import Image from "next/image";
 import loader from "../../assets/loder.gif";
 import { 
