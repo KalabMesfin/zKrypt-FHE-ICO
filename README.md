@@ -39,58 +39,55 @@ Production-ready ICO platform with complete Zama FHEVM integration for encrypted
 | **Standard** | FHEVM ERC-20 |
 | **Network** | Sepolia FHEVM |
 
-## 📁 Complete File Structure
+# zKrypt-FHE-ICO Project Structure 💻🔒
 
-zKrypt-FHE-ICO/                          # Root directory
-│
-├── assets/                               # Static images & assets
-│   ├── lock.jpg                          # Lock icon for UI
-│   ├── loader.gif                        # FHE loading animation
-│   ├── metamask.png                      # MetaMask wallet icon
-│   └── zKrypt.jpg                        # ZKT token logo
-│
-├── components/                           # React components (FHE enabled)
-│   ├── Faucet/                           # FHE Faucet module
-│   │   ├── FaucetApp.jsx                 # Main faucet UI + 1000 ZKT claims
-│   │   └── FaucetApp.module.css          # FHE faucet styling
-│   ├── NavBar/                           # Encrypted navbar
-│   │   ├── FHENavBar.jsx                 # zama_ address + encrypted balance
-│   │   └── NavBar.module.css             # Mobile responsive navbar
-│   ├── Onboarding/                       # Wallet onboarding
-│   │   ├── onboarding.jsx                 # MetaMask connection flow
-│   │   └── Onboarding.module.css         # Professional onboarding UI
-│   ├── Transfer/                         # FHE token transfers
-│   │   ├── FHETransfer.jsx               # Encrypted transfer UI
-│   │   └── Transfer.module.css           # Transfer form styling
-│   ├── User/                             # Holder tracking
-│   │   ├── FHEUser.jsx                   # Encrypted holder table
-│   │   └── User.module.css               # Holder analytics styling
-│   └── utils/                            # FHE utilities
-│       └── FHE.js                        # FHEVM constants + encrypt_u32()
-│
-├── context/                              # React Context providers
-│   ├── FHEICOCore.js                     # Main FHE ICO context (encrypted tx)
-│   ├── constant.js                       # App constants
-│   └── zKryptFHEABI.json                 # FHEzKrypt.sol ABI
-│
-├── contracts/                            # Solidity smart contracts
-│   ├── FHEzKrypt.sol                     # MAIN: euint32 ConfidentialERC20 + faucet
-│   └── zKrypt.sol                        # Backup: Standard ERC20
-│
-├── pages/                                # Next.js pages
-│   ├── _app.js                           # App wrapper + FHE context provider
-│   └── index.js                          # Main landing page
-│
-├── scripts/                              # Hardhat deployment
-│   └── deploy.js                         # Deploy FHEzKrypt.sol to Sepolia FHEVM
-│
-├── styles/                               # Global CSS
-│   ├── global.css                        # App-wide FHE styling
-│   └── index.module.css                  # Landing page styles
-│
-├── package.json                          # Dependencies (Next.js 16 + fhevmjs)
-├── hardhat.config.js                     # FHEVM Hardhat config
-└── README.md                             # This file
+This project, **zKrypt-FHE-ICO**, is a decentralized application (dApp) for an Initial Coin Offering (ICO) that leverages **Fully Homomorphic Encryption (FHE)** to enable confidential token transfers and user interactions.
+
+---
+
+## 📁 Directory Layout
+
+zKrypt-FHE-ICO/
+├── assets/               # Static images & assets
+│   ├── lock.jpg          # Lock icon for UI
+│   ├── loader.gif        # FHE loading animation
+│   ├── metamask.png      # MetaMask wallet icon
+│   └── zKrypt.jpg        # ZKT token logo
+├── components/           # React components (FHE-enabled)
+│   ├── Faucet/           # Faucet UI + claims
+│   │   ├── FaucetApp.jsx
+│   │   └── FaucetApp.module.css
+│   ├── NavBar/           # Encrypted navbar, responsive
+│   │   ├── FHENavBar.jsx
+│   │   └── NavBar.module.css
+│   ├── Onboarding/       # Wallet onboarding flow
+│   │   ├── onboarding.jsx
+│   │   └── Onboarding.module.css
+│   ├── Transfer/         # Token transfer UI
+│   │   ├── FHETransfer.jsx
+│   │   └── Transfer.module.css
+│   ├── User/             # Holder tracking UI
+│   │   ├── FHEUser.jsx
+│   │   └── User.module.css
+│   └── utils/            # FHE utilities
+│       └── FHE.js
+├── context/              # React Contexts
+│   ├── FHEICOCore.js
+│   ├── constant.js
+│   └── zKryptFHEABI.json
+├── contracts/            # Solidity smart contracts
+│   ├── FHEzKrypt.sol     # ConfidentialERC20 + faucet
+│   └── zKrypt.sol        # Standard ERC20
+├── pages/                # Next.js pages
+│   ├── _app.js           # App wrapper + providers
+│   └── index.js          # Landing page
+├── scripts/              # Deployment scripts
+│   └── deploy.js
+├── styles/               # Global stylesheets
+│   ├── global.css
+│   └── index.module.css
+├── package.json          # NPM dependencies and scripts
+└── hardhat.config.js     # Hardhat + FHEVM config
 
 ## 🚀 Quick Start
 
