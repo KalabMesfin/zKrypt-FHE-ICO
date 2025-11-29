@@ -156,8 +156,8 @@ npx hardhat run scripts/deploy.js --network sepolia
 ## 🤝 Connect
 
 - **GitHub**: [kalabmesfin](https://github.com/kalabmesfin)
-- **X/Twitter**: [@ZiAlch](https://x.com/ZiAlch)
-- **Telegram**: [@CodeForChrist](https://t.me/CodeForChrist)
+- **X/Twitter**: [ZiAlch](https://x.com/ZiAlch)
+- **Telegram**: [CodeForChrist](https://t.me/CodeForChrist)
 
 ## 📄 License
 
